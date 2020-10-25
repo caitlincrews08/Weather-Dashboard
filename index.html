@@ -18,17 +18,32 @@
   <!-- container -->
   <div class="container">
 
+    <!-- this is where the search bar lives -->
     <div class="searchbar">
       <p class="searchTitle">Search for a City:</p>
       <input id="cityInput" type="text">
       <button id="search" class="searchBtn">Search</button>
     </div>
 
-    <!-- this is where previous searches will be saved -->
-    <div class="savedSearches"></div>
+    <!-- this is where previous search values are stored -->
+    <div class="col-md-3 savedSearches"></div>
 
-    <!-- where we are dumping JSON contents -->
-    <div id="displayWeather"></div>
+    <!-- this is where current city searches will be saved/displayed -->
+    <div class="col-md-9 displayWeather">
+      <!-- <div class="col-3 border border-silver" id="savedSearches"></div> -->
+      <div class="card mb-3" id="displayWeather">
+        <div class="card-body">
+          <h2 class="current-city"></h2>
+          <div class="temp"></div>
+          <div class="hum"></div>
+          <div class="windy"></div>
+          <div class="uv"></div>
+        </div>
+      </div>
+      <div class="row forecast">
+          <div class="col-md-3 ml-4 card text-white bg-dark"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Jquery script -->
