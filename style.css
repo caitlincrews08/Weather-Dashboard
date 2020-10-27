@@ -29,7 +29,7 @@ h1 {
 .forecast {
   text-align: left;
   border: unset;
-  padding-left: 10px;
+  padding-left: 0;
 }
 
 .savedSearches {
@@ -40,4 +40,8 @@ h1 {
 .displayWeather {
   float: right;
   padding-top: 20px;
+}
+
+.eachDay {
+  padding:0;
 }

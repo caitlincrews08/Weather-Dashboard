@@ -24,10 +24,12 @@ function citiesDisplay() {
   $(".savedSearches").html("");
   for (var c = 0; c < limit; c++) {
     var cityViewed = $("<div>");
+
+    // figured out this attribute with the help of my tutor
     cityViewed.attr("id", `${cities[c]}`);
     cityViewed.addClass("row");
     var theCity = cityViewed.html(cities[c]);
-    console.log(theCity);
+    // console.log(theCity);
     $(".savedSearches").prepend(theCity);
     
     $(`#${cities[c]}`).on("click", function (event) {
@@ -58,19 +60,23 @@ function getUV(lat, lon) {
 function forecast(city) {
   var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIkey + "&units=imperial";
 
+  // ajax call to forecast api
   $.ajax({
     url: forecastURL,
     method: "GET"
   }).then(function (response) {
-    var list = response.list;
-    console.log(response);
+    // catches 5 different days at 3:00 instead of every 3 hours
+    var filteredList = response.list.filter(function(item){
+      return item.dt_txt.indexOf("15:00:00") > -1;
+    });
+    console.log(filteredList);
     // for each iteration of our loop
     $(".forecast").html("");
-    for (var i = 39; i >= 0; i = i - 8) {
-      var temp = list[i].main.temp;
-      var iconId = list[i].weather[0].icon;
-      var humidity = list[i].main.humidity;
-      var date = new Date(list[i].dt_txt);
+    for ( i = 0; i < filteredList.length; i++) {
+      var temp = filteredList[i].main.temp;
+      var iconId = filteredList[i].weather[0].icon;
+      var humidity = filteredList[i].main.humidity;
+      var date = new Date(filteredList[i].dt_txt);
 
       var day = date.getDate();
       var month = date.getMonth();
@@ -78,7 +84,7 @@ function forecast(city) {
 
       var formatedDate = `${month + 1}/${day}/${year}`;
       // Creating and storing a div tag
-      var col = $("<div>");
+      var col = $("<div>").attr("class", "eachDay col-md-2 ml-4");
       var mycard = $("<div>");
       mycard.addClass("card");
       col.append(mycard);
@@ -104,7 +110,7 @@ function forecast(city) {
 
       // Prependng the col to the HTML page in the "#forecast" div
 
-      $(".forecast").prepend(col);
+      $(".forecast").append(col);
     }
   });
 }
@@ -157,7 +163,7 @@ function getCityWeatherInfo (city) {
 
     getUV(response.city.coord.lat, response.city.coord.lon);
     forecast(city);
-    input.val("");
+    // input.val("");
 
     // $("#displayWeather").text(JSON.stringify(response));
   });
