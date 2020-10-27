@@ -84,7 +84,7 @@ function forecast(city) {
 
       var formatedDate = `${month + 1}/${day}/${year}`;
       // Creating and storing a div tag
-      var col = $("<div>").attr("class", "eachDay col-md-2 ml-4");
+      var col = $("<div>").attr("class", "eachDay col-md-2 ml-3");
       var mycard = $("<div>");
       mycard.addClass("card");
       col.append(mycard);
